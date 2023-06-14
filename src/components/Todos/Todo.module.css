@@ -24,7 +24,7 @@
 
 .completedTodo {
   background-color: unset;
-  border-color: var(--gray);
+  border: 2px solid var(--gray);
   color: var(--gray);
 }
 
