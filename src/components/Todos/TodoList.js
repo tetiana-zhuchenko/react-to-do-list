@@ -5,9 +5,10 @@ function TodoList({ todos, deleteTodo }) {
   return (
     <div className={styles.todoListContainer}>
       {!todos.length && <h2>Todo list is empty</h2>}
-      {todos.map((todo, index) => (
-        <Todo key={index} todo={todo} index={index} deleteTodo={deleteTodo} />
-      ))}
+      {todos.map((todo) => {
+        console.log(todo)
+        return <Todo key={todo.id} todo={todo} deleteTodo={deleteTodo} />
+      })}
     </div>
   )
 }
