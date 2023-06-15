@@ -3,6 +3,7 @@ import { useState } from 'react'
 import './App.css'
 import TodoList from './components/Todos/TodoList'
 import TodoForm from './components/Todos/TodoForm'
+import TodosActions from './components/Todos/TodosActions'
 
 function App() {
   const [todos, setTodos] = useState([])
@@ -30,15 +31,37 @@ function App() {
     )
   }
 
+  const resetTodoHandler = () => {
+    setTodos([])
+  }
+
+  const deleteCompletedTodosHandler = () => {
+    setTodos(todos.filter((todo) => !todo.isCompleted))
+  }
+
+  const completedTodosCount = todos.filter((todo) => todo.isCompleted).length
+
   return (
     <div className="App">
       <h1>Todo App</h1>
       <TodoForm addTodo={addTodoHandler} />
+      {todos.length > 0 && (
+        <TodosActions
+          completedTodosExist={!!completedTodosCount}
+          resetTodos={resetTodoHandler}
+          deleteCompletedTodos={deleteCompletedTodosHandler}
+        />
+      )}
       <TodoList
         todos={todos}
         deleteTodo={deleteTodoHandler}
         toggleTodo={toggleTodoHandler}
       />
+      {completedTodosCount > 0 && (
+        <h2>{`You have completed ${completedTodosCount} ${
+          completedTodosCount > 1 ? 'todos' : 'todo'
+        }`}</h2>
+      )}
     </div>
   )
 }
